@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """Python module for instantiating and serializing W3C/OGC SSN-EXT Observation Collection.
 
@@ -163,6 +162,16 @@ class platform(object):
         self.sensors.append(a_uri)
         obsgraph.add((self.platform_id, sosa.hosts, a_uri))
         Sensor.add_platform_id(self.platform_id)
+
+
+    def add_sensor(self, Sensor):
+        if(isinstance(self, Sensor)):
+            sensor_uri = Sensor.get_uri()
+            self.sensors.append(sensor_uri)
+            obsgraph.add((self.platform_id, sosa.hosts, sensor_uri))
+            Sensor.add_platform_id(self.platform_id)
+        else:
+            raise Exception('Object is not of type Sensor')
 
 
 class ObservationCollection(object):
