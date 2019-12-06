@@ -8,6 +8,7 @@ Todo:
     * Additional Organizational Information
 
 """
+from cProfile import label
 
 from rdflib import Graph, URIRef, BNode, Literal, Namespace, RDF, RDFS
 
@@ -105,8 +106,7 @@ class Platform(object):
 
 
 class Sensor(object):
-
-    """   Creates a Sensor object that represents a SOSA Feature of Interest """
+    """   Creates a Sensor object that represents a SOSA Sensor """
     observations = []
 
     def __init__(self, sensor_description, observable_property, observable_property_uri, detects):
@@ -139,19 +139,15 @@ class Sensor(object):
         self.sensor_id = sensor_id
         obsgraph.add(self.sensor_id, RDF.type, sosa.sensor)
 
-
     def set_platform_id(self, platform_id):
         self.platform_id = platform_id
         obsgraph.add((self.platform_id, RDF.type, sosa.platform))
 
-"""
     def remove_platform_id(self, platform_id):
         self.platform_id = platform_id
         self.platform.remove(platform_id)
         obsgraph.add((self.platform_id, RDF.type, sosa.platform))
         #Platform.remove_platform(self.platform_id)
-"""
-
 
 
 # Class for managing observableproperties
@@ -186,6 +182,52 @@ class UltimateFeatureOfInterest(FeatureOfInterest):
         super(UltimateFeatureOfInterest, self).__init__()
 
 
+class Actuator(object):
+    """
+    Creates an Actuator object that represents a SOSA Actuator
+    An Actuator is a device that is used by, or implements, an (Actuation) procedure that changes the state of the world
+    """
+    observations = []
+
+    def __init__(self, comment, label, observable_property_uri):
+        x = Literal
+        y = Literal
+        z = Literal
+        self.sensorid = BNode()
+        self.platform_id = BNode()
+        self.comment = Literal(comment)
+        self.label = Literal(label)
+        self.observable_property = observable_property_uri
+        self.detects = Literal()
+        self.implements_procedure = z
+        assert isinstance(sosa.Actuator, object)
+        obsgraph.add(self.actuator_id, RDF.type, sosa.Actuator) # check actuator ID
+        obsgraph.add((self.actuator_id, RDFS.comment, self.comment)) # Tie Actuator to ActuatableProperty by actsonProperty
+        obsgraph.add((self.actuator_id, RDFS.label, self.label))
+
+    def addObservation(self, sensorURI, FeatureURI, result):
+        obsid = BNode()
+        resultTime = datetime.now(tz=None)
+        resultTimeLiteral = Literal(resultTime)
+        resultLiteral = Literal(result)
+        obsgraph.add((obsid, RDF.type, sosa.Observation))
+        obsgraph.add((obsid, sosa.madeBySensor, sensorURI))
+        obsgraph.add((self.obscollid, ssnext.hasMember, obsid))
+        obsgraph.add((obsid, sosa.resultTime, resultTimeLiteral))
+        obsgraph.add((obsid, sosa.hasSimpleResult, resultLiteral))
+
+    def set_sensor_id(self, sensor_id):
+        self.sensor_id = sensor_id
+        obsgraph.add(self.sensor_id, RDF.type, sosa.sensor)
+
+    def set_platform_id(self, platform_id):
+        self.platform_id = platform_id
+        obsgraph.add((self.platform_id, RDF.type, sosa.platform))
+
+    def remove_platform_id(self, platform_id):
+        self.platform_id = platform_id
+        self.platform.remove(platform_id)
+        obsgraph.add((self.platform_id, RDF.type, sosa.platform))
 
 
 
