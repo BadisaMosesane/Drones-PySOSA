@@ -107,17 +107,15 @@ class Platform(object):
 
 class Sensor(object):
     """   Creates a Sensor object that represents a SOSA Sensor """
+
     observations = []
 
     def __init__(self, sensor_description, observable_property, observable_property_uri, detects):
-        x = Literal
-        y = Literal
-        z = Literal
         self.sensor_id = BNode()
         self.platform_id = BNode()
-        self.observable_property = x
-        self.detects = y
-        self.implements_procedure = z
+        self.observable_property = Literal
+        self.detects = Literal
+        self.implements_procedure = Literal
         # self.observable_property = Literal(x)
         self.sensor_description = Literal(sensor_description)
         obsgraph.add((self.sensorid, RDF.type, sosa.Sensor))
@@ -147,7 +145,9 @@ class Sensor(object):
         self.platform_id = platform_id
         self.platform.remove(platform_id)
         obsgraph.add((self.platform_id, RDF.type, sosa.platform))
-        #Platform.remove_platform(self.platform_id)
+
+    def add_platform_id(self, platform_id):
+        obsgraph.add((self.sensor_id, sosa.isHostedBy, platform_id))
 
 
 # Class for managing observableproperties
@@ -187,38 +187,30 @@ class Actuator(object):
     Creates an Actuator object that represents a SOSA Actuator
     An Actuator is a device that is used by, or implements, an (Actuation) procedure that changes the state of the world
     """
-    observations = []
+    actuations = []
 
-    def __init__(self, comment, label, observable_property_uri):
-        x = Literal
-        y = Literal
-        z = Literal
-        self.sensorid = BNode()
+    def __init__(self, comment, label):
+        self.actuator_id = BNode()
         self.platform_id = BNode()
+        self.actuatable_property = Literal
+        self.implements_procedure = Literal
         self.comment = Literal(comment)
         self.label = Literal(label)
-        self.observable_property = observable_property_uri
-        self.detects = Literal()
-        self.implements_procedure = z
         assert isinstance(sosa.Actuator, object)
-        obsgraph.add(self.actuator_id, RDF.type, sosa.Actuator) # check actuator ID
-        obsgraph.add((self.actuator_id, RDFS.comment, self.comment)) # Tie Actuator to ActuatableProperty by actsonProperty
+        obsgraph.add(self.actuator_id, RDF.type, sosa.Actuator)  # check actuator ID
+        obsgraph.add(
+            (self.actuator_id, RDFS.comment, self.comment))  # Tie Actuator to ActuatableProperty by actsonProperty
         obsgraph.add((self.actuator_id, RDFS.label, self.label))
 
-    def addObservation(self, sensorURI, FeatureURI, result):
-        obsid = BNode()
-        resultTime = datetime.now(tz=None)
-        resultTimeLiteral = Literal(resultTime)
-        resultLiteral = Literal(result)
-        obsgraph.add((obsid, RDF.type, sosa.Observation))
-        obsgraph.add((obsid, sosa.madeBySensor, sensorURI))
-        obsgraph.add((self.obscollid, ssnext.hasMember, obsid))
-        obsgraph.add((obsid, sosa.resultTime, resultTimeLiteral))
-        obsgraph.add((obsid, sosa.hasSimpleResult, resultLiteral))
+    def add_actuation(self, actuator):
+        a_uri = Actuator.get_uri
+        self.actuations.append(a_uri)
+        obsgraph.add(self.platform_id, sosa.isHostedBy, a_uri)
+        actuator.add_platform_id(self.platform_id)
 
-    def set_sensor_id(self, sensor_id):
-        self.sensor_id = sensor_id
-        obsgraph.add(self.sensor_id, RDF.type, sosa.sensor)
+    def set_actuator_id(self, actuator_id):
+        self.actuator_id = actuator_id
+        obsgraph.add(self.actuator_id, RDF.type, sosa.actuator)
 
     def set_platform_id(self, platform_id):
         self.platform_id = platform_id
@@ -229,7 +221,5 @@ class Actuator(object):
         self.platform.remove(platform_id)
         obsgraph.add((self.platform_id, RDF.type, sosa.platform))
 
-
-
-
-
+    def get_uri(self):
+        return self.actuator_id
