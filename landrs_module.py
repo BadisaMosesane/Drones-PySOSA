@@ -150,6 +150,45 @@ class Sensor(object):
         obsgraph.add((self.sensor_id, sosa.isHostedBy, platform_id))
 
 
+class Observation(object):
+    """
+    Creates an Observation object that represents a SOSA Observation
+    Observation: Act of carrying out an (Observation) Procedure to estimate or calculate a value of a property of a FeatureOfInterest.
+    """
+
+    def __init__(self, comment, label, result):
+        self.comment = Literal(comment)
+        self.label = Literal(label)
+        self.date_time = datetime.now(tz=None)
+        self.simple_result = Literal(result)
+        self.feature_of_interest = Literal
+        self.observation_id = BNode()
+        obsgraph.add((self.observation_id, RDF.type, sosa.Observation))
+        obsgraph.add((self.observation_id, RDFS.comment, self.comment))
+        obsgraph.add((self.observation_id, RDFS.label, self.label))
+        obsgraph.add(self.observation_id, RDF.type, self.date_time)
+        obsgraph.add(self.observation_id, RDF.type, self.simple_result)
+        obsgraph.add(self.observation_id, RDF.type, self.feature_of_interest)
+
+
+class FeatureOfInterest(object):
+    """   Creates a Feature of Interest object that represents a SOSA Feature of Interest """
+
+    def __init__(self):
+        self.uri = "_B0"
+        pass
+
+
+class Stimulus(object):
+    """
+    Creates a stimulus object that represents a SOSA stimulus
+    """
+
+    def __init__(self):
+        self.uri = "_B0"
+        pass
+
+
 # Class for managing observableproperties
 # Preferably linked to envo, sweet and qudt
 class ObservableProperty(object):
@@ -223,3 +262,115 @@ class Actuator(object):
 
     def get_uri(self):
         return self.actuator_id
+
+
+class Procedure(object):
+    """
+    Creates a Procedure object that represents a SOSA Procedure
+    """
+
+    def __init__(self, comment, label):
+        self.procedure_id = BNode()
+        self.label = Literal(label)
+        self.comment = Literal(comment)
+        self.input = Literal("")
+        self.output = Literal("")
+        obsgraph.add((self.procedure_id, RDF.type, sosa.Procedure))  # should we use sosa.system or ssn.system?
+        obsgraph.add((self.procedure_id, RDFS.comment, self.comment))
+        obsgraph.add((self.procedure_id, RDFS.label, self.label))
+
+    def set_procedure_id(self, procedure_id):
+        self.procedure_id = procedure_id
+        obsgraph.add(self.procedure_id, RDF.type, sosa.Procedure)
+
+
+class Actuation(object):
+    """
+    Creates an Actuation object that represents a SOSA Actuation
+    """
+
+    def __init__(self, comment, label):
+        self.label = Literal(label)
+        self.comment = Literal(comment)
+        self.dateTime = datetime
+        self.featureOfInterest = FeatureOfInterest()
+        self.simpleResult = Literal('')
+
+
+class FeatureOfInterest(object):
+    """   Creates a Feature of Interest object that represents a SOSA Feature of Interest """
+
+    def __init__(self):
+        self.uri = "_B0"
+        pass
+
+
+class ActuatableProperty(object):
+    """
+    Creates an ActuatableProperty object that represents a SOSA Actuatable Property
+    """
+
+    def __init__(self, comment, label):
+        self.actuatable_property_id = BNode()
+        self.label = Literal(label)
+        self.comment = Literal(comment)
+        self.property = Literal
+
+
+class Sampler(object):
+    """
+     Creates a Sample object representing a Sosa Sampler
+     Feature which is intended to be representative of a FeatureOfInterest on which Observations were made
+    """
+    samplings = []
+
+    def __init__(self, comment, label):
+        self.sampler_id = BNode()
+        self.platform_id = BNode()
+        self.observable_property = Literal
+        self.label = Literal(label)
+        self.comment = Literal(comment)
+        self.implementsProcedure = Literal
+        obsgraph.add((self.sampler_id, RDF.type, sosa.Sampler))
+        obsgraph.add((self.sampler_id, RDFS.comment, self.comment))
+        obsgraph.add((self.sampler_id, RDFS.label, self.label))
+        obsgraph.add(self.sampler_id, RDFS.type, sosa.Observation)
+        obsgraph.add(self.sampler_id, RDFS.observable_property, self.observable_property)
+        obsgraph.add(self.sampler_id, RDFS.implements_procedure, self.implementsProcedure)
+
+    def set_sampler_id(self, sampler_id):
+        self.sampler_id = sampler_id
+        obsgraph.add(self.sampler_id, RDF.type, sosa.Sampler)
+
+    def set_platform_id(self, platform_id):
+        self.platform_id = platform_id
+        obsgraph.add(self.platform_id, RDF.type, sosa.Platform)
+
+    def add_samplings(self, Sampling):
+        if isinstance(self, Sampling):
+            s_uri = Sampling.get_uri()
+            self.samplings.append(s_uri)
+            obsgraph.add((self.sampler_id, sosa.hosts, s_uri))
+        else:
+            raise Exception('Object is not of type Sampling')
+
+
+class Sampling(object):
+    """
+    Creates an Actuation object that represents a SOSA System
+    """
+
+    def __init__(self, comment, label):
+        self.sampling_id = BNode()
+        self.label = Literal(label)
+        self.comment = Literal(comment)
+        self.dateTime = datetime
+        self.featureOfInterest = FeatureOfInterest()
+        self.simpleResult = Literal
+        obsgraph.add(self.sampling_id, RDF.type, sosa.Sampling)
+        obsgraph.add(self.sampling_id, RDFS.label, self.label)
+        obsgraph.add(self.sampling_id, RDFS.comment, self.comment)
+        obsgraph.add(self.sampling_id, RDFS.dateTime, self.dateTime)
+        obsgraph.add(self.sampling_id, RDFS.simpleResult, self.simpleResult)
+        obsgraph.add(self.sampling_id, RDFS.feature_0f_Interest)
+
