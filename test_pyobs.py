@@ -1,10 +1,8 @@
-<<<<<<< HEAD
 import pyobs_pyobs
-=======
-from . import pyobs_pyobs
+
+import pyobs_pyobs
 
 
->>>>>>> 6b614c46346b96f235a84294ac1e0a9922c3a865
 import rdflib
 
 
