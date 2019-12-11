@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
-#!/usr/bin/env python
->>>>>>> 6b614c46346b96f235a84294ac1e0a9922c3a865
+
 # -*- coding: utf-8 -*-
 """Python module for instantiating and serializing W3C/OGC SSN-EXT Observation Collection.
 
@@ -211,13 +208,12 @@ class Observation(object):
 
 
 class Sensor(object):
-<<<<<<< HEAD
+
     """
     Creates a Sensor object that represents a SOSA sensor
 
     """
-=======
->>>>>>> 6b614c46346b96f235a84294ac1e0a9922c3a865
+
     def __init__(self, sensor_description, observable_property_uri):
         self.sensorid = BNode()
         self.sensor_description = Literal(sensor_description)
@@ -265,7 +261,7 @@ class FeatureOfInterest(object):
 class UltimateFeatureOfInterest(FeatureOfInterest):
     def __init__(self):
         super(UltimateFeatureOfInterest, self).__init__()
-<<<<<<< HEAD
+
 
 
 class Actuator(object):
@@ -274,5 +270,4 @@ class Actuator(object):
     An Actuator is a device that is used by, or implements, an (Actuation) procedure that changes the state of the world
     """
 
-=======
->>>>>>> 6b614c46346b96f235a84294ac1e0a9922c3a865
+
