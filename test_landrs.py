@@ -1,12 +1,13 @@
 import unittest
-from . import pyobs_pyobs
+import pyobs_pyobs
 import rdflib
+from rdflib import Graph, URIRef, Literal
 
 
 class MyTestCase(unittest.TestCase):
 
     def test_add_sensor(self):
-        obs = pyobs_pyobs.Platform(comment="mycol")
+        obs = pyobs_pyobs.ObservationCollection(comment="mycol")
         this_graph = pyobs_pyobs.get_graph()
         print(this_graph.serialize(format='turtle'))
 

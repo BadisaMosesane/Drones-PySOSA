@@ -164,16 +164,6 @@ class platform(object):
         Sensor.add_platform_id(self.platform_id)
 
 
-    def add_sensor(self, Sensor):
-        if(isinstance(self, Sensor)):
-            sensor_uri = Sensor.get_uri()
-            self.sensors.append(sensor_uri)
-            obsgraph.add((self.platform_id, sosa.hosts, sensor_uri))
-            Sensor.add_platform_id(self.platform_id)
-        else:
-            raise Exception('Object is not of type Sensor')
-
-
 class ObservationCollection(object):
     """ Create SSN-EXT Observation Collection """
 
@@ -217,6 +207,10 @@ class Observation(object):
 
 
 class Sensor(object):
+    """
+    Creates a Sensor object that represents a SOSA sensor
+
+    """
     def __init__(self, sensor_description, observable_property_uri):
         self.sensorid = BNode()
         self.sensor_description = Literal(sensor_description)
@@ -264,3 +258,11 @@ class FeatureOfInterest(object):
 class UltimateFeatureOfInterest(FeatureOfInterest):
     def __init__(self):
         super(UltimateFeatureOfInterest, self).__init__()
+
+
+class Actuator(object):
+    """
+    Creates an Actuator object that represents a SOSA Actuator
+    An Actuator is a device that is used by, or implements, an (Actuation) procedure that changes the state of the world
+    """
+
