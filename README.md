@@ -18,6 +18,10 @@ read Docs
 
 # Running the Tests
 
+To  run the tests for this module:
+
+$ python -m unittest test_landrs.py
+
 
 # Deployment
 
@@ -42,7 +46,5 @@ LANDRS
 # Acknowledgements
 
 
-To  run the tests for this module:
 
-$ python -m unittest test_landrs.py
 
