@@ -4,7 +4,7 @@ import pyobs_pyobs
 import rdflib
 from rdflib import Graph, URIRef, Literal
 
-from . import pyobs_pyobs
+import pyobs_pyobs
 import rdflib
 
 

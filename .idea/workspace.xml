@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d0a513c4-1908-4cb2-9ead-8c902bd0f454" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/pyobs_pyobs.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyobs_pyobs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_landrs.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_landrs.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,5 +116,11 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="400" y="201" width="623" height="390" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1576076111681">
+      <screen x="67" y="27" width="1299" height="741" />
+    </state>
+    <state x="400" y="201" width="623" height="390" key="#com.intellij.fileTypes.FileTypeChooser/67.27.1299.741@67.27.1299.741" timestamp="1576076111681" />
   </component>
 </project>
