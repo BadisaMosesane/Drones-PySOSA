@@ -18,7 +18,7 @@ PySOSA is A python module for building RDF graphs using the W3C SOSA (Sensors, O
 and Actuators) ontology. For more see https://github.com/landrs-toolkit/PySOSA. In short pySOSA implements
 a python-based Linked-Data API for Networked Drones.
 
-Visit [](landrs.org) or [](ld.landrs.org)
+Visit landrs.org or ld.landrs.org
 
 
 # Requirements
