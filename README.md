@@ -18,6 +18,8 @@ PySOSA is A python module for building RDF graphs using the W3C SOSA (Sensors, O
 and Actuators) ontology. For more see https://github.com/landrs-toolkit/PySOSA. In short pySOSA implements
 a python-based Linked-Data API for Networked Drones.
 
+Visit [](landrs.org) or [](ld.landrs.org)
+
 
 # Requirements
 
@@ -56,22 +58,22 @@ Make sure pylint3 and graphviz are installed
 Run the command: $ pyreverse -S <modulename> to generate the dot files in the current folder
 Once the dot files are generated use the following command to generate the output in one of the formats available
 $ dot -Tpdf <dotfilename> -o output
-dot -Txxx shows all the available output formats
+$ dot -Txxx shows all the available output formats
 
 
 # Contributing
 
 PRs and issue submissions are highly welcomed. This is an open project, published openly under Apache 2.0. We are
 excited to have you contribute to this project!
-See link https://github.com/BadisaMosesane/Drones-PySOSA/blob/master/README.md
+See link https://github.com/landrs-toolkit/PySOSA
 
 # Issues
-Known issues
-AttributeError: module 'pyobs_pyobs' has no attribute 'Platform'
-The output of the graph needs to be formatted
-More tests needs to be done to cover all test cases
-Need to check if the function for adding objects to the graph does add and check duplicate
-Need a function that queries unit testing and code coverage
+The following known issues remain:
+- AttributeError: module 'pyobs_pyobs' has no attribute 'Platform'
+- The output of the graph needs to be formatted
+- More tests needs to be done to cover all test cases
+- Need to check if the function for adding objects to the graph does add and check duplicate
+- Need a function that queries unit testing and code coverage
 more unit testing needed
 
 # License
