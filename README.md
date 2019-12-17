@@ -26,29 +26,53 @@ https://github.com/BadisaMosesane/Drones-PySOSA/blob/master/requirements.txt
 
 # Installing
 
-Install IDE: Pycharm recommended
-Install pylint3 or latest
-Install graphViz
+Install pylint3 from Install. If you have anaconda already installed use pip -U install pylint to update the pylint
+so that pyreverse is added to the scripts folder.
+
 Install Pyreverse
+
+You need to install graphViz as the pyreverse generates the UML diagrams in dot format and needs the dot.exe
+provided by Graphviz. Once GraphViz is installed make sure the bin folder is added to the PATH variable so that
+pyreverse can find it at run time.
+
 Install sphinx
 
+Install IDE: Pycharm recommended
+
+
+
 # Running the Tests
+
 The instructions for getting the project up and running on your local machine and testing purposes
 
 To  run the tests for this module:
 
 $ python -m unittest test_landrs.py
 
+How to generate the UML
+
+cd into the directory of where the project resides
+Make sure pylint3 and graphviz are installed
+Run the command: $ pyreverse -S <modulename> to generate the dot files in the current folder
+Once the dot files are generated use the following command to generate the output in one of the formats available
+$ dot -Tpdf <dotfilename> -o output
+dot -Txxx shows all the available output formats
+
 
 # Contributing
 
-This is an open project, published openly under Apache 2.0
-PRs and issue submissions are welcomed -m
-
+PRs and issue submissions are highly welcomed. This is an open project, published openly under Apache 2.0. We are
+excited to have you contribute to this project!
 See link https://github.com/BadisaMosesane/Drones-PySOSA/blob/master/README.md
 
 # Issues
-
+Known issues
+AttributeError: module 'pyobs_pyobs' has no attribute 'Platform'
+The output of the graph needs to be formatted
+More tests needs to be done to cover all test cases
+Need to check if the function for adding objects to the graph does add and check duplicate
+Need a function that queries unit testing and code coverage
+more unit testing needed
 
 # License
 This project is and always will be published openly under Apache 2.0
