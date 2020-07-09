@@ -1,4 +1,4 @@
-#!/home/badisamosesane/PycharmProjects/Landrs/venv/bin/python
+#!/Users/badisamosesane/Desktop/PycharmProjects/PySOSA/venv/bin/python
 
 import argparse
 import code
